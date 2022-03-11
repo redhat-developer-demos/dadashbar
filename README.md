@@ -1,17 +1,20 @@
-# DaDashbar
+# da dashbar 📈
 
-collected trello scrapings
+collected trello scrapings from my Dev Rel team
 
-## dev setup
+## Setup
 
-1. Make sure you have python3, `pip`, and `pyenv`
-2. init your python virtual environment
+Init a python virtual environment and source your deps
+
   ```bash
   virtualenv -p python3.10 env
   source ./env/bin/activate
   pip install -r requirements.txt
   ```
-3. export your trello API keys (from [trello.com/app-key](https://trello.com/app-key))
+
+## Config
+
+Export your trello API keys (from [trello.com/app-key](https://trello.com/app-key))
   
   ```bash
   export TRELLO_API_KEY="..."
@@ -19,12 +22,12 @@ collected trello scrapings
   export TRELLO_TOKEN="..."
   ```
 
-## run
+## Run
 
-Start the server
+Boot the server
 
 ```bash
 python app.py
 ```
 
-then take a pull from flask at [localhost:8080](http://localhost:8080)
+Take a pull from flask at [localhost:8080](http://localhost:8080)
