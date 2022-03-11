@@ -142,9 +142,9 @@ def month():
 
 def _load_data() -> DashboardData:
     # Load Trello credentials from environment and create client
-    api_key = os.environ.get(ENV_API_KEY)
-    api_secret = os.environ.get(ENV_API_SECRET)
-    token = os.environ.get(ENV_TOKEN)
+    api_key = os.environ.get(TRELLO_API_KEY)
+    api_secret = os.environ.get(TRELLO_API_SECRET)
+    token = os.environ.get(TRELLO_TOKEN)
 
     client = TrelloClient(api_key=api_key, api_secret=api_secret, token=token)
     dd = DashboardData()
