@@ -1,10 +1,14 @@
 import datetime
+import os
 
 from trello.trelloclient import TrelloClient
 
+TRELLO_API_KEY = os.getenv('TRELLO_API_KEY')
+TRELLO_API_SECRET = os.getenv('TRELLO_API_SECRET')
+TRELLO_TOKEN = os.getenv('TRELLO_TOKEN')
 
-BOARD_ID = '5f7f61eda018ce481185be8f'
-ARCHIVES_ID = '60e4b0e00879a001f87ff95c'
+BOARD_ID = os.getenv('TRELLO_BOARD', '5f7f61eda018ce481185be8f')
+HIGHLIGHTS_BOARD_ID = os.getenv('HIGHLIGHTS_BOARD', '60e4b0e00879a001f87ff95c')
 
 COLOR_EPIC = 'purple'
 COLOR_TASK = 'blue'
@@ -63,8 +67,7 @@ class DashboardData:
         self.archive_cards_by_label = {}  # {str: [List]}
         self.archive_cards_by_member = {}  # {str: [List]}
 
-        self.highlights_2021_list_ids = None  # [str]
-        self.highlights_2022_list_ids = None  # [str]
+        self.highlights_list_ids = None  # [str]
 
     def load(self, client: TrelloClient) -> None:
         """
@@ -82,7 +85,7 @@ class DashboardData:
         self.all_lists = self.board.open_lists()
         self.all_members = self.board.all_members()
 
-        self.archives = client.get_board(ARCHIVES_ID)
+        self.archives = client.get_board(HIGHLIGHTS_BOARD_ID)
         self.archive_lists = self.archives.open_lists()
         self.archive_cards = self.archives.open_cards()
 
@@ -108,10 +111,8 @@ class DashboardData:
             self.lists_by_name[LIST_IN_PROGRESS].id
         )
 
-        self.highlights_2021_list_ids = [tlist.id for tlist in self.archive_lists if
-                                         tlist.name.startswith('Highlights') and tlist.name.endswith('2021')]
-        self.highlights_2022_list_ids = [tlist.id for tlist in self.archive_lists if
-                                         tlist.name.startswith('Highlights') and tlist.name.endswith('2022')]
+        self.highlights_list_ids = [tlist.id for tlist in self.archive_lists if
+                                         tlist.name.startswith('Highlights')]
 
         # Organize cards
         def _process_card(card, member_cards, label_cards, list_cards):
@@ -393,7 +394,7 @@ class DashboardData:
     def _process_attendees_list(self, labels):
         month_cards = {}
         month_data = {}
-        for month_list_id in self.highlights_2022_list_ids:
+        for month_list_id in self.highlights_list_ids:
             # Parse month name out of the list name
             month_list_name = self.archive_lists_by_id[month_list_id].name
             month_name = month_list_name.split(' ')[2]

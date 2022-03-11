@@ -6,11 +6,9 @@ from trello import TrelloClient
 
 from .data import DashboardData
 
-
-ENV_API_KEY = 'TRELLO_API_KEY'
-ENV_API_SECRET = 'TRELLO_API_SECRET'
-ENV_TOKEN = 'TRELLO_TOKEN'
-
+TRELLO_API_KEY = os.getenv('TRELLO_API_KEY')
+TRELLO_API_SECRET = os.getenv('TRELLO_API_SECRET')
+TRELLO_TOKEN = os.getenv('TRELLO_TOKEN')
 
 @app.route('/', methods=('GET',))
 def in_progress():
@@ -141,12 +139,7 @@ def month():
 
 
 def _load_data() -> DashboardData:
-    # Load Trello credentials from environment and create client
-    api_key = os.environ.get(TRELLO_API_KEY)
-    api_secret = os.environ.get(TRELLO_API_SECRET)
-    token = os.environ.get(TRELLO_TOKEN)
-
-    client = TrelloClient(api_key=api_key, api_secret=api_secret, token=token)
+    client = TrelloClient(api_key=TRELLO_API_KEY, api_secret=TRELLO_API_SECRET, token=TRELLO_TOKEN)
     dd = DashboardData()
     dd.load(client)
 
