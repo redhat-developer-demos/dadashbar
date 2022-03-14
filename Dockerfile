@@ -4,7 +4,7 @@
 
 # This image provides a Python 3.9 environment you can use to run your Python
 # applications.
-FROM registry.redhat.io/ubi8/s2i-base:rhel8.5
+FROM ubi8/s2i-base:rhel8.5
 
 EXPOSE 8080
 
