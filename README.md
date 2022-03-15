@@ -5,7 +5,7 @@ collected trello scrapings from my Dev Rel team
 ## Build
 
 ```bash
-sudo podman build -t ryanj/dadashbar .
+sudo podman build -t quay.io/ryan_j/dadashbar:latest .
 ```
 
 ## Config
@@ -21,7 +21,7 @@ export TRELLO_TOKEN="..."
 ## Run
 
 ```bash
-sudo podman run --rmi -p 8080:8080 -i -t dadashbar
+sudo podman run --rmi -p 8080:8080 -i -t quay.io/ryan_j/dadashbar:latest
 ```
 
 ## Development Setup
