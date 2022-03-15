@@ -37,7 +37,7 @@ python3 -m pip install -r requirements.txt
 Boot the server
 
 ```bash
-python app.py
+python3 app.py
 ```
 
 Then, take a pull from flask at [localhost:8080](http://localhost:8080)
