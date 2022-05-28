@@ -13,6 +13,7 @@ HIGHLIGHTS_BOARD_ID = os.getenv('HIGHLIGHTS_BOARD', '60e4b0e00879a001f87ff95c')
 COLOR_EPIC = 'purple'
 COLOR_TASK = 'blue'
 COLOR_PRODUCT = None
+COLOR_PORTFOLIO= 'red'
 
 LIST_DONE = 'Done'
 LIST_IN_PROGRESS = 'In Progress'
@@ -25,6 +26,13 @@ LABEL_CONFERENCE_WORKSHOP = 'Conference Workshop'
 LABEL_CONTENT = 'Content'
 LABEL_CUSTOMER = 'Customer Engagement'
 LABEL_LIVE_STREAM = 'Live Stream'
+LABEL_OPENSHIFT = 'OpenShift'
+LABEL_RHEL = 'RHEL'
+LABEL_DEVTOOLS="DevTools"
+LABEL_APPSERVICES="Application Services/Integration"
+LABEL_RUNTIMES_JAVA="Runtimes/Java"
+LABEL_RUNTIMES_QUARKUS="Runtimes/Quarkus"
+LABEL_RUNTIMES_OTHERS="Runtimes/Others"
 
 
 class DashboardData:
@@ -36,6 +44,7 @@ class DashboardData:
         self.epic_label_names = None  # [str]
         self.task_label_names = None  # [str]
         self.product_label_names = None  # [str]
+        self.portfolio_label_names = None # [str]
 
         self.members_by_id = {}  # [str: Member]
 
@@ -95,6 +104,7 @@ class DashboardData:
         self.epic_label_names = [label.name for label in self.all_labels if label.color == COLOR_EPIC]
         self.task_label_names = [label.name for label in self.all_labels if label.color == COLOR_TASK]
         self.product_label_names = [label.name for label in self.all_labels if label.color == COLOR_PRODUCT]
+        self.portfolio_label_names = [label.name for label in self.all_labels if label.color == COLOR_PORTFOLIO]
         self.event_label_names = [LABEL_CUSTOMER, LABEL_CONFERENCE_WORKSHOP, LABEL_CONFERENCE_TALK]
 
         # Organize members
@@ -350,11 +360,10 @@ class DashboardData:
         Extra Fields: type
         """
         trello_list = self.archive_lists_by_id[list_id]
-        highlight_label_names = self.task_label_names + self.epic_label_names
+        highlight_label_names = self.task_label_names + self.epic_label_names + self.portfolio_label_names
 
         cards_by_label = self._list_label_filter([list_id], highlight_label_names,
                                                  label_cards=self.archive_cards_by_label)
-
         # Add extra data for each card
         for card_list in cards_by_label.values():
             add_card_types(card_list, highlight_label_names)
