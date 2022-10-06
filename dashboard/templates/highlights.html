@@ -10,15 +10,14 @@
     <tbody>
     {% for label, value in stats.items() %}
     <tr>
-        <td>{{ label }}</td>
-        <td>{{ value}}</td>
+        <td><b>{{ label }}</b></td>
+        <td><b>{{ value}}</b></td>
     </tr>
     {% endfor %}
     </tbody>
 </table>
 
 <table class="table table-sm table-striped">
-
 {% for label in cards.keys() | sort %}
     <thead class="thead-dark">
         <th colspan="4">{{ label }}</th>
