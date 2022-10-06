@@ -122,8 +122,16 @@ class DashboardData:
             else:
                 card.real_due_date = None
 
+            # FIXME: workaround for unknown member ids breaking the dashboard rendering
+            # Removing from card list for now
+            for m_id in card.member_ids:
+                if m_id == "56cf3a7319f7628c3131411a" or m_id == "5a7cbd085aba14c4e71e8d82":
+                    card.member_ids.remove(m_id)
+
             # Add in member names instead of IDs
-            if card.member_ids:
+            for m_id in card.member_ids:
+                print(m_id)
+            if card.member_ids :
                 card.member_names = [self.members_by_id[m_id].full_name for m_id in card.member_ids]
 
                 for member in card.member_names:
